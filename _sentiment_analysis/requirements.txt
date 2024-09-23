@@ -1,0 +1,11 @@
+Flask
+praw
+textblob
+pandas
+plotly
+wordcloud
+matplotlib
+transformers
+torch
+redis
+pymongo

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit NLP Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .content img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Reddit NLP Dashboard</h1>
+        <form method="POST" class="mb-4">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control" name="query" placeholder="Search Reddit..." required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+        {% if query %}
+            <h2 class="mb-4">Analysis for "{{ query }}"</h2>
+
+            <div class="content mb-4">
+                <h2>Sentiment Over Time</h2>
+                {{ sentiment_over_time_html|safe }}
+            </div>
+
+            <div class="content mb-4">
+                <h2>Sentiment Distribution</h2>
+                {{ sentiment_distribution_html|safe }}
+            </div>
+
+            <div class="content mb-4">
+                <h2>Word Cloud</h2>
+                <img src="{{ wordcloud_path }}" alt="Word Cloud">
+            </div>
+
+            <div class="content mb-4">
+                <h2>Top Keywords</h2>
+                {{ top_keywords_html|safe }}
+            </div>
+
+            <div class="content mb-4">
+                <h2>Correlation Matrix</h2>
+                {{ correlation_plot_html|safe }}
+            </div>
+
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
