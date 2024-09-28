@@ -1,6 +1,7 @@
 # Reddit Sentiment Dashboard
 •	Developed a dashboard to analyze sentiment and trends on any search topic using the Reddit API
 •	Visualized data trends and stored search results in a PostgreSQL database through Flask integration
+•	Processed and analyzed sentiment for 1,000 Reddit posts in under 5 seconds, using parallelized API requests to support large-scale data retrieval and analysis
 
 Steps:
 1. Setup flask, install requirements and run the app.py file
