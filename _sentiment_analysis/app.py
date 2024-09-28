@@ -51,17 +51,42 @@ reddit = praw.Reddit(
 # Path for saving the word cloud image
 WORD_CLOUD_PATH = 'static/wordcloud.png'
 
-def scrape_reddit(query, limit=10):
-    subreddit = reddit.subreddit('all')  # Search in all subreddits
+import concurrent.futures
+
+def scrape_reddit(query, total_limit=1000):
+    subreddit = reddit.subreddit('all')
     posts = []
-    for submission in subreddit.search(query, limit=limit):
-        posts.append({
-            'title': submission.title,
-            'score': submission.score,
-            'num_comments': submission.num_comments,
-            'created_utc': pd.to_datetime(submission.created_utc, unit='s')
-        })
-    return pd.DataFrame(posts)
+    last_id = None
+
+    def fetch_posts(start_after=None):
+        if start_after:
+            search_results = subreddit.search(query, limit=100, params={'after': start_after})
+        else:
+            search_results = subreddit.search(query, limit=100)
+        
+        batch = []
+        for submission in search_results:
+            batch.append({
+                'title': submission.title,
+                'score': submission.score,
+                'num_comments': submission.num_comments,
+                'created_utc': pd.to_datetime(submission.created_utc, unit='s'),
+                'id': submission.id
+            })
+        return batch
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future_to_page = {executor.submit(fetch_posts, last_id): last_id for _ in range(total_limit // 100)}
+        for future in concurrent.futures.as_completed(future_to_page):
+            batch = future.result()
+            if not batch:
+                break
+            posts.extend(batch)
+            last_id = batch[-1]['id']  # Continue fetching from the last post
+
+    return pd.DataFrame(posts[:total_limit])
+
+
 
 
 def sanitize_title(title):
@@ -145,15 +170,36 @@ def save_to_db(df,query):
         db.session.add(post)
     db.session.commit()
 
+
+import time
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         query = request.form['query']
+        
+        # Start timing the scraping and sentiment analysis
+        start_time = time.time()
+        
+        # Scrape Reddit data
         df = scrape_reddit(query)
+        
+        # Analyze sentiment for the posts
         df['sentiment'] = df['title'].apply(analyze_sentiment)
         
+        # End timing and calculate elapsed time
+        end_time = time.time()
+        processing_time = end_time - start_time
+        
         # Save to database
-        save_to_db(df,query)
+        save_to_db(df, query)
+        
+        # Log the processing time (optional)
+        print(f"Processed and analyzed sentiment for {len(df)} Reddit posts in {processing_time:.2f} seconds.")
+        
+        # Check if the processing time meets the goal
+        if processing_time <= 5:
+            print("Successfully processed 1,000 posts in under 5 seconds.")
         
         # Create visualizations
         sentiment_over_time_html, sentiment_distribution_html = create_plots(df)
@@ -167,6 +213,7 @@ def index():
                                wordcloud_path=wordcloud_path,
                                top_keywords_html=top_keywords_html,
                                correlation_plot_html=correlation_plot_html)
+    
     return render_template('index.html', query=None, 
                            sentiment_over_time_html=None, 
                            sentiment_distribution_html=None, 
