@@ -1,27 +1,45 @@
-Privacy Policy for Personal Non-Commercial Project Using Reddit API
+Privacy Policy for reddit-sentiment-dashboard
 
-This project is a personal, non-commercial application that utilizes the Reddit API for educational purposes. Below is the privacy policy outlining how data is collected, stored, and managed:
+Introduction
+This Privacy Policy explains how reddit-sentiment-dashboard ("we", "us", or "our") collects, uses, and manages data while utilizing the Reddit API for educational purposes. This project is a personal, non-commercial application intended solely for educational use. We are committed to ensuring your privacy and handling your data responsibly.
 
-Data Collection
-This project scrapes public data from Reddit using the Reddit API based on user-submitted search queries.
-The data collected includes post titles, scores, number of comments, creation times, and sentiment analysis results.
-This data is used solely for performing sentiment analysis and generating visualizations for educational purposes.
-Data Storage and Retention
-Collected data is temporarily stored in a PostgreSQL database for processing and analysis.
-All data stored consists only of public Reddit post details relevant to the analysis.
-Manual Deletion: The data will be manually deleted from the PostgreSQL database after its use for sentiment analysis and visualizations. Users can delete this data at their discretion.
-Data Sharing
-No data collected or processed by this project will be shared with any third parties.
-The data is used strictly within this application for educational purposes related to sentiment analysis.
-Data Usage
-The collected Reddit data is utilized solely for generating sentiment analysis insights, including word clouds, sentiment distribution, and correlation plots.
-Data is processed to create visual outputs such as graphs and charts to aid in understanding sentiment trends.
-Compliance with Reddit API Terms
-This project adheres to the Reddit API's terms of service and data usage policies, ensuring compliance with data storage and retention requirements.
-Only publicly available Reddit data is accessed through the Reddit API, and all usage aligns with Reddit’s guidelines.
-Data Security
-The PostgreSQL database used for temporary data storage is secured locally on the host machine, preventing unauthorized access.
-No sensitive or private user information is collected or stored, ensuring that user privacy is maintained throughout the project.
-By using this project, you acknowledge and agree that the data collected from Reddit is utilized only for educational and personal purposes, and it is not shared or retained beyond its temporary use.
+1. Data Collection
+This project scrapes publicly available data from Reddit through the Reddit API based on user-submitted search queries. The data collected includes:
 
-If you have any questions or concerns regarding this privacy policy or the handling of data in this project, check out the reddit api page for help.
+Post titles
+Scores
+Number of comments
+Creation times
+Sentiment analysis results
+This information is used exclusively for performing sentiment analysis and generating visualizations for educational purposes.
+
+2. Data Storage and Retention
+Collected data is temporarily stored in a PostgreSQL database for processing and analysis. Key points regarding data storage include:
+
+All stored data consists only of public Reddit post details relevant to the analysis.
+Manual Deletion: Data will be manually deleted from the PostgreSQL database after use. Users can delete this data at their discretion.
+3. Data Sharing
+We do not share, sell, or disclose any data collected or processed by this project to third parties. The data is used strictly within this application for educational purposes related to sentiment analysis.
+
+4. Data Usage
+The collected Reddit data is utilized solely for generating sentiment analysis insights, which may include:
+
+Word clouds
+Sentiment distribution
+Correlation plots
+The processed data will be used to create visual outputs, such as graphs and charts, to aid in understanding sentiment trends.
+
+5. Children's Privacy
+This project is not intended for children under the age of 13. We do not knowingly collect personal information from children. If we learn that we have collected such data, we will take steps to delete it.
+
+6. Compliance with Reddit API Terms
+This project adheres to the Reddit API's terms of service and data usage policies, ensuring compliance with data storage and retention requirements. We access only publicly available Reddit data through the Reddit API, and all usage aligns with Reddit’s guidelines.
+
+7. Data Security
+The PostgreSQL database used for temporary data storage is secured locally on the host machine to prevent unauthorized access. No sensitive or private user information is collected or stored, ensuring user privacy is maintained throughout the project.
+
+8. Acknowledgment
+By using this project, you acknowledge and agree that the data collected from Reddit is utilized exclusively for educational and personal purposes and is not shared or retained beyond its temporary use.
+
+8. Questions and Concerns
+If you have any questions or concerns regarding this Privacy Policy or the handling of data in this project, please refer to the Reddit API documentation for assistance.
